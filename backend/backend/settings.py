@@ -10,11 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+# pyright: ignore[reportMissingImport]
 from environ import Env
 from datetime import timedelta
 from dotenv import load_dotenv
-import os
 load_dotenv()
 
 env = Env()
@@ -66,6 +67,7 @@ SIMPLE_JWT = {
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -115,33 +117,30 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-DB_LIVE = os.getenv("DB_LIVE")
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if DB_LIVE in ['False', False]:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'teamplay_dp',
-            'USER': 'root',
-            'PASSWORD': 'Xazarpen1403!',
-            'HOST': 'localhost',
-            'PORT': '3306',
-        }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'teamplay_dp',
+#         'USER': 'root',
+#         'PASSWORD': 'Xazarpen1403!',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ("DB_NAME"),
+        'USER': os.environ("DB_USER"),
+        'PASSWORD': os.environ("DB_PASSWORD"),
+        'HOST': os.environ("DB_HOST"),
+        'PORT': os.environ("DB_PORT"),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.getenv("DB_NAME"),
-            'USER': os.getenv("DB_USER"),
-            'PASSWORD': os.getenv("DB_PASSWORD"),
-            'HOST': os.getenv("DB_HOST"),
-            'PORT': os.getenv("DB_PORT"),
-        }
-    }
+}
 
 
 # Password validation
@@ -182,7 +181,6 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = 'media/'
 
