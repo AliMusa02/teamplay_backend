@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
-# pyright: ignore[reportMissingImport]
 from environ import Env
 from datetime import timedelta
 # from dotenv import load_dotenv
@@ -131,11 +130,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ("DB_NAME"),
-        'USER': os.environ("DB_USER"),
-        'PASSWORD': os.environ("DB_PASSWORD"),
-        'HOST': os.environ("DB_HOST"),
-        'PORT': os.environ("DB_PORT"),
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT': env("DB_PORT"),
     }
 }
 
