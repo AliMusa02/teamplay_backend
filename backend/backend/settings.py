@@ -14,23 +14,28 @@ import os
 from pathlib import Path
 from environ import Env
 from datetime import timedelta
-# from dotenv import load_dotenv
-# load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
-env = Env()
-Env.read_env()
-ENVIRONMENT = env("ENVIRONMENT", default='production')
+# ENVIRONMENT=development
+#
+# ENCRYPT_KEY=lAHvEo-dRwoOUr47nTwAVAXz7p334QhrgVWn6544cHU=
+
+
+# ENVIRONMENT = env("ENVIRONMENT", default='production')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = Env()
+Env.read_env(BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
-ENCRYPT_KEY = env('ENCRYPT_KEY')
+# ENCRYPT_KEY = env('ENCRYPT_KEY')
 
 ACCOUNT_USERNAME_BLACKLIST = ['admin', 'theboss']
 
