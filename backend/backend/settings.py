@@ -15,8 +15,8 @@ from pathlib import Path
 # pyright: ignore[reportMissingImport]
 from environ import Env
 from datetime import timedelta
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 env = Env()
 Env.read_env()
@@ -37,10 +37,7 @@ ACCOUNT_USERNAME_BLACKLIST = ['admin', 'theboss']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if ENVIRONMENT == 'development':
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
